@@ -1,0 +1,36 @@
+table, th, td {
+	border: 1px solid black;
+},
+
+td {
+}
+
+#game-board {
+	width: 50%;
+
+},
+
+.square {
+
+
+},
+
+.mine {
+
+
+},
+
+.number {
+
+
+},
+
+.hit {
+
+
+},
+
+.game-over{
+
+
+},
