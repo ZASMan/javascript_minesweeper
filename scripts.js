@@ -2,32 +2,36 @@ var game = {
 
 	//Each array is one row
 	gameBoard: [
-		[1,2,3,4,5,6,7,8,9],
-
+		[0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0]
 	],
-
-	initiateBoard: function() {
-		for (row = 0; row < this.gameBoard.length; row++) {
-			//Loop through each row element
-			var randNum = Math.random() * 9) + 1;
-			var mine = "mine";
-			row.forEach(function(square, index) {
-				if (row[index] === randNum) {
-					row[index] = mine;
-				} else {
-					row[index] = "";
-				};
-			});
+	
+	addMines: function(gameBoard) {
+		//Loop through each row
+		for (i = 0; i < this.gameBoard.length; i++) {
+			var randNum = Math.floor(Math.random() * 9) + 1;
+			//Loop through each square in each row
+			for (j =0; j < this.gameBoard[i].length; j++) {
+				if (j === randNum) {
+					//Set equal to mine if square index 
+					this.gameBoard[i][j] = "mine";
+					//Set adjacent squares
+					//Next To Mine
+					this.gameBoard[i][j-1]++;
+					this.gameBoard[i][j+1]++;
+				}
+			}
 		};
-	},
-
-	gameTime: 0,
-
-	selectSquare: function() {
-		//Check if square has a mine
 	},
 
 };
 
-game.initiateBoard();
-
+game.addMines(game.gameBoard);
+console.log(game.gameBoard);
