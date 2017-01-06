@@ -2,11 +2,13 @@ table, th, td {
 	border: 1px solid black;
 },
 
-td {
-}
+.start-mine {
+	background-color: #A9A9A9;
+
+},
 
 #game-board {
-	width: 50%;
+	width: 100%;
 
 },
 

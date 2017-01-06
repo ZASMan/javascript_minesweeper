@@ -23,13 +23,18 @@ var game = {
 					//Set equal to mine if square index 
 					this.gameBoard[i][j] = "M";
 					//Set adjacent squares
-					//Next To Mine
+					//Increment number of mines next To Mine
 					this.gameBoard[i][j-1]++;
 					this.gameBoard[i][j+1]++;
-					//Above the mine
-					//this.gameBoard[i-1][j]++;					
-					//Below the mine
-					//this.gameBoard[i+1][j]++;
+					//Increment number of mines above it the mine
+					if (i >=1 ) {
+						console.log("Adding to previous line. Previous line is now " + this.gameBoard[i-1][j]);
+						this.gameBoard[i-1][j]++;
+					};
+					//Increment number of mines below the mine
+					if (i < 8) {
+					this.gameBoard[i+1][j]++;
+					};
 				}
 			}
 		};
@@ -51,14 +56,14 @@ var game = {
 				if (this.gameBoard[i][j] === NaN) {
 					//How to not add td with NaN if NaN appears?
 				} else {
-				currentRow.innerHTML +="<td>"+  this.gameBoard[i][j] + "</td>";
+				currentRow.innerHTML +="<td class='start-mine'>"+  this.gameBoard[i][j] + "</td>";
 				};
 			};
 		};
+		console.log("Game Board drawing complete.");
 	},
 
 };
 
 game.addMines(game.gameBoard);
-console.log(game.gameBoard);
 game.drawGame();
