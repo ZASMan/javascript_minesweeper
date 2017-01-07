@@ -15,10 +15,12 @@ var game = {
 	
 	addMines: function(gameBoard) {
 		//Loop through each row
-		for (i = 0; i < this.gameBoard.length; i++) {
+		var board = this.gameBoard
+		for (i = 0; i < board.length; i++) {
 			var randNum = Math.floor(Math.random() * 9) + 1;
 			//Loop through each square in each row
-			for (j =0; j < this.gameBoard[i].length; j++) {
+			var singleRow = this.gameBoard[i]
+			for (j =0; j < singleRow.length; j++) {
 				if (j === randNum) {
 					//Set equal to mine if square index 
 					this.gameBoard[i][j] = "M";
