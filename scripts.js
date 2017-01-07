@@ -24,16 +24,19 @@ var game = {
 					this.gameBoard[i][j] = "M";
 					//Set adjacent squares
 					//Increment number of mines next To Mine
-					this.gameBoard[i][j-1]++;
-					this.gameBoard[i][j+1]++;
+					if (this.gameBoard[i][j-1] != "M") {	
+						this.gameBoard[i][j-1]++;
+					};
+					if (this.gameBoard[i][j+1] != "M") {
+						this.gameBoard[i][j+1]++;
+					};
 					//Increment number of mines above it the mine
-					if (i >=1 ) {
-						console.log("Adding to previous line. Previous line is now " + this.gameBoard[i-1][j]);
+					if (i >=1 && this.gameBoard[i-1][j] != "M" ) {
 						this.gameBoard[i-1][j]++;
 					};
 					//Increment number of mines below the mine
-					if (i < 8) {
-					this.gameBoard[i+1][j]++;
+					if (i < 8 && this.gameBoard[i+1][j] != "M") {
+						this.gameBoard[i+1][j]++;
 					};
 				}
 			}
@@ -52,16 +55,15 @@ var game = {
 		for (i=0; i < this.gameBoard.length; i++) {
 			var currentRow = document.getElementById('row-' + i);
 			for(j=0; j < this.gameBoard[i].length; j++) {
-				//NaN randomly appearing as 10th array element
-				if (this.gameBoard[i][j] === NaN) {
-					//How to not add td with NaN if NaN appears?
-				} else {
-				currentRow.innerHTML +="<td class='start-mine'>"+  this.gameBoard[i][j] + "</td>";
-				};
+				currentRow.innerHTML +="<td class='start-mine' style='background-color: #A9A9A9; width: 50px; height: 50px'>"+  this.gameBoard[i][j] + "</td>";
 			};
 		};
 		console.log("Game Board drawing complete.");
 	},
+
+	selectMine: function() {
+
+	};
 
 };
 
