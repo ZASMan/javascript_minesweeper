@@ -54,16 +54,20 @@ var game = {
 		//Create Squares for each row based on the gameBoard arrays
 		for (i=0; i < this.gameBoard.length; i++) {
 			var currentRow = document.getElementById('row-' + i);
+			//Identify their type by class and location in array by id
+			//Also add onclick event for selecting
 			for(j=0; j < this.gameBoard[i].length; j++) {
-				currentRow.innerHTML +="<td class='start-mine' style='background-color: #A9A9A9; width: 50px; height: 50px'>"+  this.gameBoard[i][j] + "</td>";
+				currentRow.innerHTML +="<td id ='" + this.gameBoard[i][j] +  "'style='background-color: #A9A9A9; width: 50px; height: 50px' onClick='game.selectMine(this.id, this.class)'>"+  this.gameBoard[i][j] + "</td>";
 			};
 		};
 		console.log("Game Board drawing complete.");
 	},
 
-	selectMine: function() {
+	selectMine: function(squareID) {
+		//This needs to be able to evaluate the value of the class
+		alert("The ID is " + squareID);
 
-	};
+	},
 
 };
 
