@@ -68,7 +68,10 @@ var game = {
 	selectMine: function(squareID) {
 		//This needs to be able to evaluate the value of the class
 		alert("The ID is " + squareID);
-
+		//Maybe assign id's a value of "mine" and the row then make the check
+		//to see if it contains the substring 'mine'? That way not all of mines
+		//are equal to mine
+		//and then do something if theres no mine
 	},
 
 };
