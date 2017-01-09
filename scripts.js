@@ -59,9 +59,10 @@ var game = {
 			//Identify their type by class and location in array by id
 			//Also add onclick event for selecting
 			for(j=0; j < this.gameBoard[i].length; j++) {
-				var squareNum = 0;
-				var squareId = this.gameBoard[i][j] + "-square-" + squareNum;
+				var squareRow = i;
+				var squareRowPosition = j;
 				var squareValue = this.gameBoard[i][j];
+				var squareId = squareRow + "-" + squareRowPosition;
 				console.log("Square value is " + squareValue);
 				//Add Square to row
 				currentRow.innerHTML +="<td id='" + squareId +
@@ -74,15 +75,10 @@ var game = {
 	},
 
 	selectMine: function(squareId) {
-		console.log("id is " + squareId);
-		//This needs to be able to evaluate the value of the class
-		//Maybe assign id's a value of "mine" and the row then make the check
-		//to see if it contains the substring 'mine'? That way not all of mines
-		//are equal to mine
-		//and then do something if theres no mine
-		if (squareId.includes("M")) {
-			//alert("Game over!");
-		};
+		//take the ID and use a regex to parse the value of it.
+		//before the - is the squareRow number, and after - is the
+		//square row position. loop through the gameBoard and see if 
+		//the value for that index is "M", and end the game if it is.
 	},
 
 };
