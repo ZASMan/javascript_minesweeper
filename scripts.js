@@ -59,19 +59,30 @@ var game = {
 			//Identify their type by class and location in array by id
 			//Also add onclick event for selecting
 			for(j=0; j < this.gameBoard[i].length; j++) {
-				currentRow.innerHTML +="<td id ='" + this.gameBoard[i][j] +  "'style='background-color: #A9A9A9; width: 50px; height: 50px' onClick='game.selectMine(this.id, this.class)'>"+  this.gameBoard[i][j] + "</td>";
+				var squareNum = 0;
+				var squareId = this.gameBoard[i][j] + "-square-" + squareNum;
+				var squareValue = this.gameBoard[i][j];
+				console.log("Square value is " + squareValue);
+				//Add Square to row
+				currentRow.innerHTML +="<td id='" + squareId +
+				"'style='background-color: #A9A9A9; width: 50px; height: 50px'"+
+				"onClick='game.selectMine(this.id)'>"+ 
+				squareValue + "</td>";
 			};
 		};
 		console.log("Game Board drawing complete.");
 	},
 
-	selectMine: function(squareID) {
+	selectMine: function(squareId) {
+		console.log("id is " + squareId);
 		//This needs to be able to evaluate the value of the class
-		alert("The ID is " + squareID);
 		//Maybe assign id's a value of "mine" and the row then make the check
 		//to see if it contains the substring 'mine'? That way not all of mines
 		//are equal to mine
 		//and then do something if theres no mine
+		if (squareId.includes("M")) {
+			//alert("Game over!");
+		};
 	},
 
 };
