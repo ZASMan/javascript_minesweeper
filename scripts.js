@@ -75,10 +75,6 @@ var game = {
 	},
 
 	selectMine: function(squareId) {
-		//take the ID and use a regex to parse the value of it.
-		//before the - is the squareRow number, and after - is the
-		//square row position. loop through the gameBoard and see if 
-		//the value for that index is "M", and end the game if it is.
 		console.log("Clicked square " + squareId);
 		var boardPosition = squareId.replace(/[#]/g, "");
 		console.log("board position is " + boardPosition);
@@ -88,11 +84,19 @@ var game = {
 			//Explode that mine
 			document.getElementById(squareRow + "#" + squareRowPosition).style.backgroundColor = 'red';
 			//Explode all other mines
-			//Get id's of all other td's
-			//Compare id's with the value of their location in gameBoard arrays
-			//change backgroundColor to red for those which are "M"
-			var tdCollection = document.getElemenetsByTagName("td");
+			var tdCollection = document.getElementsByTagName("td");
 			var idArray = [];
+			for (i = 0; i < tdCollection.length; i++) {
+				var parsedId = tdCollection[i].id.replace(/[#]/g, "");
+				idArray.push(parsedId);
+			};
+			for (j=0; j < idArray.length; j++) {
+				var boardSquareRow = idArray[j][0];
+				var boardSquareRowPos = idArray[j][1];
+				if (this.gameBoard[boardSquareRow][boardSquareRowPos] == "M") {
+					document.getElementById(boardSquareRow + "#" + boardSquareRowPos).style.backgroundColor = 'red';
+				};
+			};
 			//Loop through the tdCollection node list and then push all of the
 			//id's to an array
 			//parse the # out from the id's and then compare them with the board
