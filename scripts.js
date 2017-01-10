@@ -69,7 +69,7 @@ var game = {
 				//Add Square to row
 				currentRow.innerHTML +="<td id='" + squareId +
 				"'style='background-color: #A9A9A9; width: 50px; height: 50px'"+
-				"onClick='game.selectMine(this.id)'>"+ 
+				"onClick='game.selectMine(this.id)' oncontextmenu='game.setFlag(this.id)'>"+ 
 				squareValue + "</td>";
 			};
 		};
@@ -95,9 +95,9 @@ var game = {
 			};
 			for (j=0; j < idArray.length; j++) {
 				var boardSquareRow = idArray[j][0];
-				var boardSquareRowPos = idArray[j][1];
-				if (this.gameBoard[boardSquareRow][boardSquareRowPos] == "M") {
-					this.explodeMine(boardSquareRow, boardSquareRowPos);
+				var boardSquareRowPosition = idArray[j][1];
+				if (this.gameBoard[boardSquareRow][boardSquareRowPosition] == "M") {
+					this.explodeMine(boardSquareRow, boardSquareRowPosition);
 				};
 			};
 			//Loop through the tdCollection node list and then push all of the
@@ -113,17 +113,24 @@ var game = {
 	},
 
 	explodeMine: function(row, position) {
-		var boardSquareRow = row;
-		var boardSquareRowPos = position;
-		var mineId = document.getElementById(boardSquareRow + "#" + boardSquareRowPos);
-		mineId.style.backgroundColor = 'red';
-		mineId.innerHTML = "*";
-		mineId.style.textAlign = 'center';
+		var squareRow = row;
+		var squareRowPosition = position;
+		var mineElement = document.getElementById(squareRow + "#" + squareRowPosition);
+		mineElement.style.backgroundColor = 'red';
+		mineElement.innerHTML = "*";
+		mineElement.style.textAlign = 'center';
 	},
 
 	//Right Click
-	setFlag: function() {
-
+	setFlag: function(squareId) {
+		var rightClickedSquare = document.getElementById(squareId);
+		rightClickedSquare.innerHTML + "<1";
+		rightClickedSquare.color = "blue";
+		rightClickedSquare.textAlign = 'center';
+		var boardPosition = squareId.replace(/[#]/g, "");
+		var squareRow = boardPosition[0];
+		var squareRow = boardPosition[1];
+		
 	},
 
 };
