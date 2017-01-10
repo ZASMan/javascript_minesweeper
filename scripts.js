@@ -62,7 +62,7 @@ var game = {
 				var squareRow = i;
 				var squareRowPosition = j;
 				var squareValue = this.gameBoard[i][j];
-				var squareId = squareRow + "-" + squareRowPosition;
+				var squareId = squareRow + "#" + squareRowPosition;
 				console.log("Square value is " + squareValue);
 				//Add Square to row
 				currentRow.innerHTML +="<td id='" + squareId +
@@ -79,6 +79,30 @@ var game = {
 		//before the - is the squareRow number, and after - is the
 		//square row position. loop through the gameBoard and see if 
 		//the value for that index is "M", and end the game if it is.
+		console.log("Clicked square " + squareId);
+		var boardPosition = squareId.replace(/[#]/g, "");
+		console.log("board position is " + boardPosition);
+		var squareRow = boardPosition[0];
+		var squareRowPosition = boardPosition[1];
+		if (this.gameBoard[squareRow][squareRowPosition] === "M") {
+			//Explode that mine
+			document.getElementById(squareRow + "#" + squareRowPosition).style.backgroundColor = 'red';
+			//Explode all other mines
+			//Get id's of all other td's
+			//Compare id's with the value of their location in gameBoard arrays
+			//change backgroundColor to red for those which are "M"
+			var tdCollection = document.getElemenetsByTagName("td");
+			var idArray = [];
+			//Loop through the tdCollection node list and then push all of the
+			//id's to an array
+			//parse the # out from the id's and then compare them with the board
+			//array and see if they are m or not
+			alert("Game over!");
+		} else {
+			//Parse value to number
+			var numNearbyMines = parseInt(this.gameBoard[squareRow][squareRowPosition]);
+			
+		};
 	},
 
 };
