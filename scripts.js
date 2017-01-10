@@ -12,6 +12,8 @@ var game = {
 		[0,0,0,0,0,0,0,0,0],
 		[0,0,0,0,0,0,0,0,0]
 	],
+
+	gameOver: false,
 	
 	addMines: function(gameBoard) {
 		//Loop through each row
@@ -73,7 +75,8 @@ var game = {
 		};
 		console.log("Game Board drawing complete.");
 	},
-
+	
+	//Left Click
 	selectMine: function(squareId) {
 		console.log("Clicked square " + squareId);
 		var boardPosition = squareId.replace(/[#]/g, "");
@@ -82,7 +85,7 @@ var game = {
 		var squareRowPosition = boardPosition[1];
 		if (this.gameBoard[squareRow][squareRowPosition] === "M") {
 			//Explode that mine
-			document.getElementById(squareRow + "#" + squareRowPosition).style.backgroundColor = 'red';
+			this.explodeMine(squareRow, squareRowPosition);
 			//Explode all other mines
 			var tdCollection = document.getElementsByTagName("td");
 			var idArray = [];
@@ -94,7 +97,7 @@ var game = {
 				var boardSquareRow = idArray[j][0];
 				var boardSquareRowPos = idArray[j][1];
 				if (this.gameBoard[boardSquareRow][boardSquareRowPos] == "M") {
-					document.getElementById(boardSquareRow + "#" + boardSquareRowPos).style.backgroundColor = 'red';
+					this.explodeMine(boardSquareRow, boardSquareRowPos);
 				};
 			};
 			//Loop through the tdCollection node list and then push all of the
@@ -107,6 +110,20 @@ var game = {
 			var numNearbyMines = parseInt(this.gameBoard[squareRow][squareRowPosition]);
 			
 		};
+	},
+
+	explodeMine: function(row, position) {
+		var boardSquareRow = row;
+		var boardSquareRowPos = position;
+		var mineId = document.getElementById(boardSquareRow + "#" + boardSquareRowPos);
+		mineId.style.backgroundColor = 'red';
+		mineId.innerHTML = "*";
+		mineId.style.textAlign = 'center';
+	},
+
+	//Right Click
+	setFlag: function() {
+
 	},
 
 };
