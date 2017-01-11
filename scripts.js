@@ -12,8 +12,6 @@ var game = {
 		[0,0,0,0,0,0,0,0,0],
 		[0,0,0,0,0,0,0,0,0]
 	],
-
-	gameOver: false,
 	
 	addMines: function(gameBoard) {
 		//Loop through each row
@@ -66,10 +64,11 @@ var game = {
 				var squareValue = this.gameBoard[i][j];
 				var squareId = squareRow + "#" + squareRowPosition;
 				console.log("Square value is " + squareValue);
-				//Add Square to row
+				//Add Square to row (HTMl values are added temporarily for testing)
 				currentRow.innerHTML +="<td id='" + squareId +
-				"'style='background-color: #A9A9A9; width: 50px; height: 50px'"+
-				"onClick='game.selectMine(this.id)' oncontextmenu='game.setFlag(this.id)'>"+ 
+				"'style='background-color: #d3d3d3; width: 50px; height: 50px'"+
+				"onClick='game.selectMine(this.id)'" +
+				"oncontextmenu='game.setFlag(this.id)'>"+ 
 				squareValue + "</td>";
 			};
 		};
@@ -84,49 +83,60 @@ var game = {
 		var squareRow = boardPosition[0];
 		var squareRowPosition = boardPosition[1];
 		if (this.gameBoard[squareRow][squareRowPosition] === "M") {
-			//Explode that mine
+			//Explode clicked mine and reveal all mines
 			this.explodeMine(squareRow, squareRowPosition);
-			//Explode all other mines
-			var tdCollection = document.getElementsByTagName("td");
-			var idArray = [];
-			for (i = 0; i < tdCollection.length; i++) {
-				var parsedId = tdCollection[i].id.replace(/[#]/g, "");
-				idArray.push(parsedId);
-			};
-			for (j=0; j < idArray.length; j++) {
-				var boardSquareRow = idArray[j][0];
-				var boardSquareRowPosition = idArray[j][1];
-				if (this.gameBoard[boardSquareRow][boardSquareRowPosition] == "M") {
-					this.explodeMine(boardSquareRow, boardSquareRowPosition);
-				};
-			};
-			//Loop through the tdCollection node list and then push all of the
-			//id's to an array
-			//parse the # out from the id's and then compare them with the board
-			//array and see if they are m or not
 			alert("Game over!");
-		} else {
-			//Parse value to number
-			var numNearbyMines = parseInt(this.gameBoard[squareRow][squareRowPosition]);
-			
+		} else if (this.gameBoard[squareRow][squareRowPosition] === "0") {
+			//Reveal that mine
+			console.log("Revealing blank mine");
+			this.revealBlank(squareRow, squareRowPosition);
 		};
 	},
 
 	explodeMine: function(row, position) {
 		var squareRow = row;
 		var squareRowPosition = position;
-		var mineElement = document.getElementById(squareRow + "#" + squareRowPosition);
-		mineElement.style.backgroundColor = 'red';
-		mineElement.innerHTML = "*";
-		mineElement.style.textAlign = 'center';
+		var clickedMineElement = document.getElementById(squareRow + "#" + squareRowPosition);
+		clickedMineElement.style.backgroundColor = "#a8a8a8";
+		clickedMineElement.style.color = "red";
+		clickedMineElement.innerHTML = "*";
+		clickedMineElement.style.textAlign = 'center';
+		//Change original array value so that the color does not change to black
+		//when iterating through other mines
+		this.gameBoard[squareRow][squareRowPosition] = "Exploded";
+		var tdCollection = document.getElementsByTagName("td");
+		var idArray = [];
+		for (i = 0; i < tdCollection.length; i++) {
+			var parsedId = tdCollection[i].id.replace(/[#]/g, "");
+			idArray.push(parsedId);
+		};
+		for (j=0; j < idArray.length; j++) {
+			var squareRow = idArray[j][0];
+			var squareRowPosition = idArray[j][1];
+			if (this.gameBoard[squareRow][squareRowPosition] == "M") {
+				var mineElement = document.getElementById(squareRow + "#" + squareRowPosition);
+				mineElement.style.backgroundColor = "#a8a8a8";
+				mineElement.style.color = 'black';
+				mineElement.innerHTML = "*";
+				mineElement.style.textAlign = 'center';
+			};
+		};	
+	},
+
+	revealBlank: function(row, position) {
+		var squareRow = row;
+		var squareRowPosition = position;
+		var clickedMineElement = document.getElementById(squareRow + "#" + squareRowPosition);
+		clickedMineElement.style.backgroundColor = "#a8a8a8";
 	},
 
 	//Right Click
 	setFlag: function(squareId) {
+		console.log("Right clicked square " + squareId);
 		var rightClickedSquare = document.getElementById(squareId);
-		rightClickedSquare.innerHTML + "<1";
-		rightClickedSquare.color = "blue";
-		rightClickedSquare.textAlign = 'center';
+		rightClickedSquare.style.color = "blue";
+		rightClickedSquare.innerHTML = "<1";
+		rightClickedSquare.style.textAlign = 'center';
 		var boardPosition = squareId.replace(/[#]/g, "");
 		var squareRow = boardPosition[0];
 		var squareRow = boardPosition[1];
