@@ -69,7 +69,7 @@ var game = {
 				"'style='background-color: #d3d3d3; width: 50px; height: 50px'"+
 				"onClick='game.selectMine(this.id)'" +
 				"oncontextmenu='game.setFlag(this.id)'>"+ 
-				squareValue + "</td>";
+				"</td>";
 			};
 		};
 		console.log("Game Board drawing complete.");
@@ -130,17 +130,31 @@ var game = {
 		clickedMineElement.style.backgroundColor = "#a8a8a8";
 	},
 
-	//Right Click
+	numFlags : 10,
+
+	//Right Click to set flag
 	setFlag: function(squareId) {
 		console.log("Right clicked square " + squareId);
 		var rightClickedSquare = document.getElementById(squareId);
-		rightClickedSquare.style.color = "blue";
-		rightClickedSquare.innerHTML = "<1";
-		rightClickedSquare.style.textAlign = 'center';
-		var boardPosition = squareId.replace(/[#]/g, "");
-		var squareRow = boardPosition[0];
-		var squareRow = boardPosition[1];
-		
+		//Remove Already Placed Flag
+		if (rightClickedSquare.innerHTML === "<1") {
+			rightClickedSquare.style.backgroundColor = "#d3d3d3";
+			rightClickedSquare.innerHTML = "";
+			//Readd a flags
+			this.numFlags++;
+		//Add flag placed flag
+		} else if (rightClickedSquare.innerHTML === "" && this.numFlags > 1) {
+			rightClickedSquare.style.color = "blue";
+			rightClickedSquare.innerHTML = "<1";
+			rightClickedSquare.style.textAlign = 'center';
+			//Decrease a flag
+			this.numFlags--;
+			var boardPosition = squareId.replace(/[#]/g, "");
+			var squareRow = boardPosition[0];
+			var squareRow = boardPosition[1];		
+		} else if (this.numFlags === 0) {
+			console.log("Out of flags");
+		};
 	},
 
 };
