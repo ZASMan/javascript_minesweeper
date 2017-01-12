@@ -130,7 +130,7 @@ var game = {
 		clickedMineElement.style.backgroundColor = "#a8a8a8";
 	},
 
-	numFlags : 10,
+	numFlags: 10,
 
 	//Right Click to set flag
 	setFlag: function(squareId) {
@@ -149,9 +149,6 @@ var game = {
 			rightClickedSquare.style.textAlign = 'center';
 			//Decrease a flag
 			this.numFlags--;
-			var boardPosition = squareId.replace(/[#]/g, "");
-			var squareRow = boardPosition[0];
-			var squareRow = boardPosition[1];		
 		} else if (this.numFlags === 0) {
 			console.log("Out of flags");
 		};
